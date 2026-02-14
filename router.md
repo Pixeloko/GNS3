@@ -25,10 +25,28 @@ exit # exit submode config
 no ip address 10.10.0.1/24
 ```
 
+# Routing protocol
+## Static route
+```bash
+ip route destination-address mask gateway AD
+# AD = amdinistration distance : reverse of priority level
+# mask indicate the bits we need to match for the destination
+# gateway = interface (ex: Serial 0/0/0)
+ipv6 route destination-address mask gateway AD
+# gateway can be global unicast address of the interface, the interface identifier (ex: Serial 0/0/0) or interface identifier + link-local address of the interface (because it is not routed)
+```
+
 # Display information
 *Active interface and routeur address on the physical link*
 ```bash
 show interface brief
+```
+*Show the link-local address of an interface*
+```bash
+show ipv6 interface Serial 0/0/0 | include link-local
+*routing static table*
+```bash 
+show ipv6 route static
 ```
 
 # Neighbor Discovery with OSPF
