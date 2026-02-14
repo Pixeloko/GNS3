@@ -4,16 +4,16 @@
 
 # Router configuration
 *Open an integrated shell to configure FRR Routing daemon*
-```bash
+```console
 vtysh
 configure terminal
 ```
 *Change the name of the router*
-```bash
+```console
 hostname r1
 ```
 *Add ipv4 address for one interface*
-```bash
+```console
 # in config mode
 interface eth1
 ip address # insert address with subnet mask
@@ -21,13 +21,13 @@ no shutdown # permit to send and recieve informations
 exit # exit submode config
 ```
 *remove an ip address*
-```bash
+```console
 no ip address 10.10.0.1/24
 ```
 
 # Routing protocol
 ## Static route
-```bash
+```console
 ip route destination-address mask gateway AD
 # AD = amdinistration distance : reverse of priority level
 # mask indicate the bits we need to match for the destination
@@ -38,20 +38,24 @@ ipv6 route destination-address mask gateway AD
 
 # Display information
 *Active interface and routeur address on the physical link*
-```bash
+```console
 show interface brief
 ```
 *Show the link-local address of an interface*
-```bash
+```console
 show ipv6 interface Serial 0/0/0 | include link-local
 *routing static table*
-```bash 
+```console 
 show ipv6 route static
+```
+*see the config*
+```console
+show running-config
 ```
 
 # Neighbor Discovery with OSPF
 *Only between routers, find the fastest route*
-```bash
+```console
 # 1. check the ospf daemon is enabled
 exit # if in vtysh
 vi /etc/frr/daemons # change ospf=no by ospf=yes then :wq
