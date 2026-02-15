@@ -37,25 +37,8 @@ ipv6 route destination-address mask gateway AD
 # gateway can be global unicast address of the interface, the interface identifier (ex: Serial 0/0/0) or interface identifier + link-local address of the interface (because it is not routed)
 ```
 
-# Display information
-*Active interface and routeur address on the physical link*
-```console
-show interface brief
-```
-*Show the link-local address of an interface*
-```console
-show ipv6 interface Serial 0/0/0 | include link-local
-*routing static table*
-```console 
-show ip route
-show ipv6 route static
-```
-*see the config*
-```console
-show running-config
-```
-
-# Neighbor Discovery with OSPF
+# Dynamic routing
+## Neighbor Discovery with OSPF
 *Only between routers, find the fastest route*
 ```console
 # 1. check the ospf daemon is enabled
@@ -74,4 +57,31 @@ write memory
 # 3. display
 # in exec mode
 show ip ospf neighbor
+```
+
+## RIP
+Make sure to activate the ripd in /etc/frr/daemons and restart with /etc/init.d/frr restart
+```console
+configure terminal
+router rip
+version 2
+network
+```
+
+# Display information
+*Active interface and routeur address on the physical link*
+```console
+show interface brief
+```
+*Show the link-local address of an interface*
+```console
+show ipv6 interface Serial 0/0/0 | include link-local
+*routing static table*
+```console 
+show ip route
+show ipv6 route static
+```
+*see the config*
+```console
+show running-config
 ```
