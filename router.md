@@ -28,7 +28,8 @@ no ip address 10.10.0.1/24
 # Routing protocol
 ## Static route
 ```console
-ip route destination-address mask gateway AD
+configure terminal
+ip route <destination-address><mask><gateway><AD>
 # AD = amdinistration distance : reverse of priority level
 # mask indicate the bits we need to match for the destination
 # gateway = interface (ex: Serial 0/0/0)
@@ -46,6 +47,7 @@ show interface brief
 show ipv6 interface Serial 0/0/0 | include link-local
 *routing static table*
 ```console 
+show ip route
 show ipv6 route static
 ```
 *see the config*
