@@ -30,7 +30,7 @@ router ospf
 network 192.162.1|2.0/24 area 0 # let know the network (include PC)
 network 10.10.10.0/24 area 0 # communication between routers
 !
-ip route 192.162.2|1.0/24 192.162.3.2|1 150 # syntaxe= ip route [neighbor network/cdr][neighbor router gateway]
+ip route 192.162.2|1.0/24 192.162.3.2|1 150 # syntax = ip route [neighbor network/cdr][neighbor router gateway]
 !
 ```
 
