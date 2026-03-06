@@ -1,4 +1,4 @@
-# 1.Static route
+# Static route
 Acquired skills :
 * Configuration of PC and routers ip and static routes
 * Distribution of adresses in (sub)networks

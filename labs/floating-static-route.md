@@ -1,4 +1,4 @@
-# 1.Floating static route
+# Floating static route
 Acquired skills :
 * Configuration of PC and routers ip and static routes with administrative distance higher than OSPF (110)
 * Distribution of adresses in (sub)networks
@@ -54,4 +54,12 @@ shutdown
 #### PC2
 ```console
 ping 192.162.1.10
+```
+
+## Display
+```console
+show interface brief
+show ip route [ip address]
+show ip ospf neighbor
+show running-config
 ```
