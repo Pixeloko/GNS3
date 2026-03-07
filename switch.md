@@ -25,12 +25,16 @@ ip link set eth0 up
 ip link set switch0 up
 ```
 
-Display information
+# Display information
 ```bash
 ip link show # see interface and their MAC addresses
 ip addr show bridge0 # show their IP Addresses
 brctl show | ovs vsctl show # display information about the bridge
 brctl showmacs switch0 | ovs appctl fdb/show bridge0 # show forwarding database
+show vlan-switch (brief | id [10])
+show mac-address table 
+show interfaces status
+show interface [interface] switchport # info about port mode
 ```
 
 # VLAN
@@ -45,13 +49,14 @@ vlan [10] name [name]
 configure terminal
 interface range fa1/0 - 1 # configure multiple interfaces
 switchport mode access # or just switchport, to active switch mode
+switchport mode dynamic auto|desirable # for other mode
 switchport access vlan [10]
 exit
 ```
 4. Set IP addresses for PC (ip [192.168.1.1 255.255.255.0]) and ping between them to verify
-## Display commands
-```console
-show vlan-switch (brief | id [10])
-show mac-address table 
-show interfaces status
+
+## Set up trunk mode on one switch's interface (between two switches)
+```bash
+(config-if)# switchport mode trunk
+switchport trunk encapsulation [dot1q|isl] # config encapsulation type dot1q for 802.1Q or isl
 ```
