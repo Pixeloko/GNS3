@@ -65,6 +65,8 @@ exit
 ```bash
 (config-if)# switchport mode trunk
 switchport trunk encapsulation [dot1q|isl] # config encapsulation type dot1q for 802.1Q or isl
+switchport mode trunk
+switchport trunk allowed vlan [ID, ID]
 ```
 
 ## Switch Virtual Interfaces
@@ -88,3 +90,28 @@ switchport access vlan [id]
 ```console
 show ip interface brief | include Vlan
 ```
+
+## Inter-VLAN routing
+### Router on a stick technique
+Requisites : 
+* R1
+* SW1 with multiple VLANs
+* trunk link between R1 and SW1
+
+Enable the trunk on SW1:
+```bash
+configure t
+interface fa1/3 # the link between R1 and SW1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan [id, id]
+```
+
+Create sub-interfaces for each vlan on R1:
+```bash
+interface faO/0.10 # creates a virtual sub-interface on the physical port fa0/0
+encapsulation dot1q 10
+ip address 192.168.10.254 255.255.255.0 # will be the default gateway for all devices in VLAN 10
+show ip route # verify
+```
+Repeat for each vlan
