@@ -1,3 +1,9 @@
+# Summary
+* [Set up](#set-up-the-switch)
+* [Display](#display-information)
+* [VLAN](#vlan)
+
+
 # Set up the switch 
 *Within Fusion Ware VM, using alpine docker image*
 
@@ -19,7 +25,7 @@ Configure the switch and its interface
 for br in $(ovs vsctl list-br); do ovs vsctl del-br $br; done # delete all pre-configured bridges
 brctl addbr switch0 | ovs vsctl add-br switch0 # create bridge
 ip addr add [ip address] # add ip address for the switch = become gateway to configure PC's address
-brctl addif switch0 eth0 | ovs vsctl add-port switch0 eth0 # add interface for this bridge
+brctl addif switch0 eth0 | ovs vsctl add-port switch0 eth0 # add interface for this bridge, ⚠️fa0/0 and fa0/1 ar reserved for router use
 ip link set eth0 up
 ip link set eth0 up
 ip link set switch0 up
@@ -59,4 +65,26 @@ exit
 ```bash
 (config-if)# switchport mode trunk
 switchport trunk encapsulation [dot1q|isl] # config encapsulation type dot1q for 802.1Q or isl
+```
+
+## Switch Virtual Interfaces
+Give a virtual interface (network layer) for one VLAN
+1. Create vlan to create after its SVI (vlan database)
+2. 
+```bash
+configure terminal
+interface vlan [20]
+no shutdown
+ip address [address] # attributes an ip address for the interface of the vlan
+exit
+```
+3. Set the interface to the VLAN
+```bash
+interface [interface]
+switchport mode access
+switchport access vlan [id]
+```
+4. Verify
+```console
+show ip interface brief | include Vlan
 ```
