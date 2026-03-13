@@ -69,28 +69,6 @@ switchport mode trunk
 switchport trunk allowed vlan [ID, ID]
 ```
 
-## Switch Virtual Interfaces
-Give a virtual interface (network layer) for one VLAN
-1. Create vlan to create after its SVI (vlan database)
-2. 
-```bash
-configure terminal
-interface vlan [20]
-no shutdown
-ip address [address] # attributes an ip address for the interface of the vlan
-exit
-```
-3. Set the interface to the VLAN
-```bash
-interface [interface]
-switchport mode access
-switchport access vlan [id]
-```
-4. Verify
-```console
-show ip interface brief | include Vlan
-```
-
 ## Inter-VLAN routing
 ### Router on a stick technique
 Requisites : 
@@ -115,3 +93,31 @@ ip address 192.168.10.254 255.255.255.0 # will be the default gateway for all de
 show ip route # verify
 ```
 Repeat for each vlan
+
+### Switch Virtual Interfaces
+Give a virtual interface (network layer) for one VLAN
+1. Create vlan to create after its SVI (vlan database)
+2. For every vlans
+```bash
+configure terminal
+ip routing # to start building the routing table 
+interface vlan [20]
+no shutdown
+ip address [address][subnetmask] # attributes an ip address for the interface of the vlan
+exit
+```
+3. Set the interface to the VLAN
+```bash
+interface [id]
+switchport mode access
+switchport access vlan [id]
+```
+4. Verify
+```bash
+show ip interface brief | include Vlan # or show ip interface vlan [id]
+```
+
+If all interfaces are down, the SVI protocol must be down. To exclude one interface from influencing the state of the SVI:
+```console
+SW1(config-if)#switchport autostate exclude
+```

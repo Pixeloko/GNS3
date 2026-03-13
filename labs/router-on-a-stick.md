@@ -16,7 +16,7 @@ vlan 20 name Computers
 exit
 !
 configure t
-interface range fa1/0 - 1
+interface range fa1/0 -1
 switchport mode access
 switchport access vlan 20
 no shutdown

@@ -25,6 +25,20 @@ exit # exit submode config
 no ip address 10.10.0.1/24
 ```
 
+Change the function of the router, simulating a host (PC)
+```bash
+hostname HOST1
+no ip routing # will not route
+interface [id]
+ip address [address][subnet mask]
+duplex auto # let the negociation protocol find the appropriate communication method
+speed auto
+!
+ip default-gateway [address]
+!
+end
+```
+
 # Routing protocol
 ## Static route
 ```console
