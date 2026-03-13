@@ -61,12 +61,11 @@ exit
 ```
 4. Set IP addresses for PC (ip [192.168.1.1 255.255.255.0]) and ping between them to verify
 
-## Set up trunk mode on one switch's interface (between two switches)
+## Voice VLAN (for IP Phone)
+1. Create a VLAN via the SW 
+2. Go to the interface andd attribute that VLAN
 ```bash
-(config-if)# switchport mode trunk
-switchport trunk encapsulation [dot1q|isl] # config encapsulation type dot1q for 802.1Q or isl
-switchport mode trunk
-switchport trunk allowed vlan [ID, ID]
+switchport voice vlan [id] # turn into a voice vlan
 ```
 
 ## Inter-VLAN routing
@@ -80,7 +79,7 @@ Enable the trunk on SW1:
 ```bash
 configure t
 interface fa1/3 # the link between R1 and SW1
-switchport trunk encapsulation dot1q
+switchport trunk encapsulation [dot1q|isl] # config encapsulation type dot1q for 802.1Q or isl
 switchport mode trunk
 switchport trunk allowed vlan [id, id] # to add specific vlan to the default ones : ...allowed vlan add [id]
 ```
