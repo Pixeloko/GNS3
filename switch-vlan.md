@@ -104,7 +104,7 @@ configure t
 interface fa1/3 # the link between R1 and SW1
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan [id, id]
+switchport trunk allowed vlan [id, id] # to add specific vlan to the default ones : ...allowed vlan add [id]
 ```
 
 Create sub-interfaces for each vlan on R1:
