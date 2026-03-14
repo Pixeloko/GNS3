@@ -38,10 +38,20 @@ ip addr show bridge0 # show their IP Addresses
 brctl show | ovs vsctl show # display information about the bridge
 brctl showmacs switch0 | ovs appctl fdb/show bridge0 # show forwarding database
 show vlan-switch (brief | id [10])
-show mac-address table 
+show mac-address # add dynamic or static to only see mac address learnt with a specific mode
+show mac-address aging-time # after this indicated time, SW forget MAC address of a host which has gone silent
 show interfaces status
 show interface [interface] switchport # info about port mode
 ```
+
+# SpanTree Protocol STP
+Draw topology, helps switches to elect root bridge an set root/designated/blocking ports.
+Connect a SW to another device (router/switch), to see steps of port state:
+1. tap the debug command
+```console
+debug spanning-tree events
+```
+2. shutdown and set up the interface to see blocking->listening->learning->forwarding
 
 # VLAN
 1. Use the EtherSwitch template, connect 2 PC (or more)
@@ -66,6 +76,7 @@ exit
 2. Go to the interface andd attribute that VLAN
 ```bash
 switchport voice vlan [id] # turn into a voice vlan
+show interface [interface id]switchport # verify
 ```
 
 ## Inter-VLAN routing
@@ -119,4 +130,10 @@ show ip interface brief | include Vlan # or show ip interface vlan [id]
 If all interfaces are down, the SVI protocol must be down. To exclude one interface from influencing the state of the SVI:
 ```console
 SW1(config-if)#switchport autostate exclude
+```
+
+### Routed port
+```console
+(config-if)#no switchport
+ip address [ip, subnet mask]
 ```
