@@ -67,6 +67,11 @@ Higher the path cost (to urge for blocked port)
 (config-if)# spanning-tree cost [new cost]
 ```
 
+prevent TCN sending for topology change on an interface connected to a single passive device
+```console
+SW(config-if)# spanning-tree portfast
+```
+
 # VLAN
 1. Use the EtherSwitch template, connect 2 PC (or more)
 2. Create new VLAN
