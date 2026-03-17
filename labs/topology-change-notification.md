@@ -28,7 +28,7 @@ Set ip address on PCs and connect them to the network
 PC1
 ```console
 ip 192.168.1.1
-````
+```
 PC2
 ```console
 ip 192.168.1.2
@@ -73,4 +73,3 @@ Verify new ports configuration on each switch
 show spanning-tree vlan 1
 ```
 After the learning phase see the ping reaching its target again
-```
