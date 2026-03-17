@@ -42,6 +42,7 @@ show mac-address # add dynamic or static to only see mac address learnt with a s
 show mac-address aging-time # after this indicated time, SW forget MAC address of a host which has gone silent
 show interfaces status
 show interface [interface] switchport # info about port mode
+show spanning-tree vlan [1] root # show the priority of the root bridge
 ```
 
 # SpanTree Protocol STP
@@ -52,6 +53,19 @@ Connect a SW to another device (router/switch), to see steps of port state:
 debug spanning-tree events
 ```
 2. shutdown and set up the interface to see blocking->listening->learning->forwarding
+
+Lower the priority (to choose the root bridge)
+```bash
+configure t
+spanning-tree vlan 1 priority [number, default is 32768] # by default, all switches are in vlan 1
+exit
+show spanning-tree vlan 1 root # check ports configuration
+```
+
+Higher the path cost (to urge for blocked port)
+```console
+(config-if)# spanning-tree cost [new cost]
+```
 
 # VLAN
 1. Use the EtherSwitch template, connect 2 PC (or more)
