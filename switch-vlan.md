@@ -46,6 +46,8 @@ show interface [interface] switchport # info about port mode
 show spanning-tree vlan [1] root # show the priority of the root bridge + SPT protocol
 debug spanning-tree events # see events hapenning in the topology
 debug spanning-tree bpdu # view sent & received BPDUs
+show spanning-tree mst configuration | sh span mst con # show MST regions info
+show spanning-tree mst interface [id] # show port type according to instances (containing range of vlans)
 ```
 
 # SpanTree Protocol STP
@@ -119,6 +121,16 @@ print("127.0.0.1 xml.cisco.com")
 print("\n*********************************************************************")
 ```
 execute it and copy paste license key in GNS2 GUI>Preferences>"IOS on Unix"
+
+# Multiple spanning tree protocol (MST)
+enable it with `(config)#spanning-tree mode mst'
+enter MST configuration mode
+```bash
+spanning-tree mst configuration
+name [name] # optional
+revision [id] # optional
+instance [id] vlan [id],[id] # map vlans in it
+```
 
 # VLAN
 1. Use the EtherSwitch template, connect 2 PC (or more)
