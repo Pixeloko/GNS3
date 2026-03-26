@@ -38,16 +38,18 @@ ip link show # see interface and their MAC addresses
 ip addr show bridge0 # show their IP Addresses
 brctl show | ovs vsctl show # display information about the bridge
 brctl showmacs switch0 | ovs appctl fdb/show bridge0 # show forwarding database
-show vlan-switch (brief | id [10])
+show vlan (brief | id [10])
 show mac-address # add dynamic or static to only see mac address learnt with a specific mode
 show mac-address aging-time # after this indicated time, SW forget MAC address of a host which has gone silent
 show interfaces status
 show interface [interface] switchport # info about port mode
-show spanning-tree vlan [1] root # show the priority of the root bridge + SPT protocol
+show running-config all | include spanning-tree mode
+show spanning-tree vlan [1] (root) # show the priority of the root bridge + SPT protocol
 debug spanning-tree events # see events hapenning in the topology
 debug spanning-tree bpdu # view sent & received BPDUs
 show spanning-tree mst configuration | sh span mst con # show MST regions info
-show spanning-tree mst interface [id] # show port type according to instances (containing range of vlans)
+show spanning-tree mst # vlan mapping + root
+show spanning-tree mst interface [id] | begin Interface # show port type according to instances (containing range of vlans)
 ```
 
 # SpanTree Protocol STP
@@ -130,6 +132,10 @@ spanning-tree mst configuration
 name [name] # optional
 revision [id] # optional
 instance [id] vlan [id],[id] # map vlans in it
+```
+influence root bridge election for one instance with priority of the switch
+```bash
+spanning-tree mst 1 priority 4096 # switch will have this priority in instance 1
 ```
 
 # VLAN
