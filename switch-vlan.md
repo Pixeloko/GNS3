@@ -45,6 +45,7 @@ show interfaces status
 show interface [interface] switchport # info about port mode
 show running-config all | include spanning-tree mode
 show spanning-tree vlan [1] (root) # show the priority of the root bridge + SPT protocol
+show spanning-tree bridge details # bridge id (priority, VLAN sys-id, MAC)
 debug spanning-tree events # see events hapenning in the topology
 debug spanning-tree bpdu # view sent & received BPDUs
 show spanning-tree mst configuration | sh span mst con # show MST regions info
@@ -68,15 +69,43 @@ spanning-tree vlan 1 priority [number, default is 32768] # by default, all switc
 exit
 show spanning-tree vlan 1 root # check ports configuration
 ```
-
+or, automatic priority 
+```bash
+spanning-tree vlan [1] root primary|secondary 
+```
 Higher the path cost (to urge for blocked port)
 ```console
 (config-if)# spanning-tree cost [new cost]
 ```
 
+## SPT features
+PORTFAST
 prevent TCN sending for topology change on an interface connected to a single passive device
 ```console
 SW(config-if)# spanning-tree portfast
+```
+
+ROOT GUARD
+prevent a root bridge from losing its status by enabling Root Guard on all its DSG ports
+```console
+(config-if)#spanning-tree guard root
+```
+
+BPDU FILTER
+Prevent transmission+reception of BPDU on portfast port (global mode)
+```console
+spanning-tree portfast bpdufilter default
+```
+on a specific port (local mode)
+```console
+spanning-tree bpdufilter enable
+```
+
+BPDU GUARD
+Prevent BPDU reception. 
+```bash
+spanning-tree portfast bpduguard default # global
+spanning-tree bpduguard enable # local
 ```
 
 # Rapid SpanTree Protocol
