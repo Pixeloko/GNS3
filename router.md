@@ -82,6 +82,16 @@ version 2
 network
 ```
 
+# Encapsulation Protocol
+## Tunnelling with Generic Routing Encapsulation (GRE)
+*in config mode*
+```bash
+tunnel [1]
+tunnel source [interface] # interface the router can physically reach the destination
+tunnel destination [ip]
+ip adress [ip][mask] # attribute IP for tunnel interface 
+```
+
 # Display information
 *Active interface and routeur address on the physical link*
 ```console
@@ -98,4 +108,8 @@ show ipv6 route static
 *see the config*
 ```console
 show running-config
+```
+
+```console
+show tunnel [1]
 ```
