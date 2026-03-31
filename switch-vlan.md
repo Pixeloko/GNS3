@@ -251,3 +251,27 @@ SW1(config-if)#switchport autostate exclude
 (config-if)#no switchport
 ip address [ip, subnet mask]
 ```
+
+# VXLAN
+## Ingress Replication
+(for a light solution use FRR)
+UNDERLAY CONFIGURATION
+set inter-switch interface ip address, and loopback address on aall SW
+```bash
+config t
+interface [interface]
+ip address [ip/cdr] # link between switches
+exit
+interface loopback
+ip address [1.1.1.1/cdr] # for VTEP identification (router ID)
+```
+Set up OSPF discovery between switches
+```console
+ospf router
+network [network ip] area 0
+network [lookback] area 0
+```
+verification : send ping on loopback address
+
+OVERLAY CONFIGURATION
+

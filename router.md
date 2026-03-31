@@ -13,7 +13,7 @@ configure terminal
 hostname r1
 ```
 *Add ipv4 address for one interface*
-```console
+```bash
 # in config mode
 interface eth1
 ip address # insert address with subnet mask
@@ -41,7 +41,7 @@ end
 
 # Routing protocol
 ## Static route
-```console
+```bash
 configure terminal
 ip route <destination-address><mask><gateway><AD>
 # AD = amdinistration distance : reverse of priority level
@@ -54,7 +54,7 @@ ipv6 route destination-address mask gateway AD
 # Dynamic routing
 ## Neighbor Discovery with OSPF
 *Only between routers, find the fastest route*
-```console
+```bash
 # 1. check the ospf daemon is enabled
 exit # if in vtysh
 vi /etc/frr/daemons # change ospf=no by ospf=yes then :wq
