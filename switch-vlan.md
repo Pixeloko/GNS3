@@ -252,26 +252,67 @@ SW1(config-if)#switchport autostate exclude
 ip address [ip, subnet mask]
 ```
 
-# VXLAN
-## Ingress Replication
-(for a light solution use FRR)
-UNDERLAY CONFIGURATION
-set inter-switch interface ip address, and loopback address on aall SW
+ # VXLAN
+## UNDERLAY CONFIGURATION
+create VTEP loopback interface (for NVE config later)
 ```bash
-config t
-interface [interface]
-ip address [ip/cdr] # link between switches
-exit
 interface loopback
-ip address [1.1.1.1/cdr] # for VTEP identification (router ID)
+	ip address [ip/cdr]
 ```
-Set up OSPF discovery between switches
-```console
-ospf router
-network [network ip] area 0
-network [lookback] area 0
-```
-verification : send ping on loopback address
 
-OVERLAY CONFIGURATION
+two options for VTEP inter-discovery
+1.OSPF
+```bash
+router ospf 1
+	network [loopback] area 0
+	network [our host ip address] area 0
+```
+2.BGP
+```bash
+router bgp 65000
+	router-id [VTEP loopack address]
+	neighbor [loopback neighbor] remote-as 6500
+	neighbor [idem] update-source loopback # force BGP to use loopback
+	address-family l2vpn evpn
+		neighbor [idem] activate # activate bgp for our neigbor
+		send-community extended # send our config to neighbor
+		advertise-all-vni # announces our vni to neigbors
+```
+
+## OVERLAY CONFIGURATION
+associate loopback as NVE and connect it to neighbor VTEP
+```bash
+interface nve1
+	source-interface loopback
+	member vni 10010 
+		ingress-replication # or mcast-group [multicast address] # if multicast underlay method
+		remote-peer-ip [loopback neighbor VTEP] # if ingress replication
+```
+
+associate VLAN to VNI (mapping)
+```bash
+vlan 10
+	vn-segment 10010
+```
+if hosts are not in the same VLAN, use L3 VRF
+```bash
+vrf context TENANT # vrf is a routing table
+	vni 10020
+rd auto # route-distinguisher, each route (EVPN) is unique even if VNI are the same, on different VTEPs
+route-target both auto # VTEP shares their routes (MAC/IP, VNI) with a RT attached
+```
+and add a svi to our vlan
+```bash
+interface vlan 10
+	vrf member TENANT
+ip address [ip/cdr]
+fabric forwarding mode anycast-gateway
+```
+
+## Display
+show nve peers # display VTEP connected on the same tunnel
+show nve vni # show vxlan on this vne
+show bgp l2vpn evpn [summary|mac] 
+show interface nve1 # show VTEP for the nve1 tunnel
+show vxlan
 
