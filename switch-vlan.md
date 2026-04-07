@@ -331,4 +331,5 @@ configure L3 Etherchannel
 ```bash
 no switchport
 ip addr add [ip][subnetmask]
+no interface po1 # delete the portchannel
 ```
