@@ -3,6 +3,8 @@
 * [Display](#display-information)
 * [Spanning-Tree](#spantree-protocol-stp)
 * [VLAN](#vlan)
+* [VXLAN](#vxlan)
+* [Etherchannel](#etherchannel-configuration)
 
 
 # Set up the switch 
@@ -51,6 +53,16 @@ debug spanning-tree bpdu # view sent & received BPDUs
 show spanning-tree mst configuration | sh span mst con # show MST regions info
 show spanning-tree mst # vlan mapping + root
 show spanning-tree mst interface [id] | begin Interface # show port type according to instances (containing range of vlans)
+show nve peers # display VTEP connected on the same tunnel
+show nve vni # show vxlan on this vne
+show bgp l2vpn evpn [summary|mac] 
+show interface nve1 # show VTEP for the nve1 tunnel
+show vxlan
+show interfaces port-channel [id] # do not make more change on the physical interface
+show etherchannel interfaces summary
+show etherchannel [id] port-channel
+show interface [interface] etherchannel
+show Etherchannel load-balancing√
 ```
 
 # SpanTree Protocol STP
@@ -309,10 +321,8 @@ ip address [ip/cdr]
 fabric forwarding mode anycast-gateway
 ```
 
-## Display
-show nve peers # display VTEP connected on the same tunnel
-show nve vni # show vxlan on this vne
-show bgp l2vpn evpn [summary|mac] 
-show interface nve1 # show VTEP for the nve1 tunnel
-show vxlan
-
+# Etherchannel configuration
+```bash
+channel-group [1] mode active|passive|desirable|auto|on
+port-channel load-balancing [dst|src]-[ip|mac] # base traffice sending option on ip or mac 
+```
