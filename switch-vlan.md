@@ -62,7 +62,8 @@ show interfaces port-channel [id] # do not make more change on the physical inte
 show etherchannel interfaces summary
 show etherchannel [id] port-channel
 show interface [interface] etherchannel
-show Etherchannel load-balancing√
+show Etherchannel load-balance
+show etherchannel [id] detail # show mode 
 ```
 
 # SpanTree Protocol STP
@@ -325,4 +326,9 @@ fabric forwarding mode anycast-gateway
 ```bash
 channel-group [1] mode active|passive|desirable|auto|on
 port-channel load-balancing [dst|src]-[ip|mac] # base traffice sending option on ip or mac 
+```
+configure L3 Etherchannel
+```bash
+no switchport
+ip addr add [ip][subnetmask]
 ```
