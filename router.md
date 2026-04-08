@@ -116,7 +116,8 @@ show running-config
 show tunnel [1]
 ```
 
-# SSH 
+# Remote connection
+## SSH 
 Set up a remote access (no-routing router to router)
 after having set up :
 * interface ip addresses and gateway (for host)
@@ -147,4 +148,33 @@ HOST
 ```console
 ssh -l [name] [dns ip addr]
 enable
+```
+
+## TFTP
+transmission of file
+ROUTER
+```bash
+tftp-server flash:[file]
+```
+
+HOST
+```bash
+copy tftp: [destination] # download destination
+```
+* type tftp server ip address
+* filename
+
+## DNS
+ROUTER
+```bash
+ip domain name [name]
+ip dns server
+ip host [FQDN] [ip addr] # associate FQDN to one IP
+```
+FQDN = Fully Qualified Domain Name (host/router name + domain name)
+HOST
+```bash
+ip name-server [router interface ip address]
+ip domain-lookup # convert ip address to name
+ping [dns host name]
 ```
