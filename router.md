@@ -93,9 +93,11 @@ ip adress [ip][mask] # attribute IP for tunnel interface
 ```
 
 # Display information
-*Active interface and routeur address on the physical link*
-```console
+*interfaces*
+```bash
 show interface brief
+show ip interface brief | exclude unassigned # show ip address assigned to interfaces
+show ip default-gateway # for router simulating being a host
 ```
 *Show the link-local address of an interface*
 ```console
@@ -112,4 +114,37 @@ show running-config
 
 ```console
 show tunnel [1]
+```
+
+# SSH 
+Set up a remote access (no-routing router to router)
+after having set up :
+* interface ip addresses and gateway (for host)
+R1
+```bash
+conf t
+username [name] password [password] # can create many as desired
+enable secret [password] # password asked when desire to enter in exec mode via host 
+line vty 0 4 # enable 5 hosts to remotely access
+    transport input ssh
+!
+ip domain-name lab.local # DNS of the router
+crypto key generate rsa modulus 2048 # generate ssh key (2048 bits)
+ip ssh version 2
+end
+```
+
+without user account authentification : 
+```bash
+line vty 0 4
+    password [password] # password for all hosts if no login local (via configured accounts)
+    login
+!
+transport input ssh
+```
+
+HOST
+```console
+ssh -l [name] [dns ip addr]
+enable
 ```

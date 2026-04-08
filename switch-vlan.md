@@ -270,7 +270,7 @@ ip address [ip, subnet mask]
 create VTEP loopback interface (for NVE config later)
 ```bash
 interface loopback
-	ip address [ip/cdr]
+	ip address [ip/cidr]
 ```
 
 two options for VTEP inter-discovery
@@ -318,7 +318,7 @@ and add a svi to our vlan
 ```bash
 interface vlan 10
 	vrf member TENANT
-ip address [ip/cdr]
+ip address [ip/cidr]
 fabric forwarding mode anycast-gateway
 ```
 
