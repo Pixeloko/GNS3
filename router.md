@@ -116,7 +116,7 @@ show running-config
 show tunnel [1]
 ```
 
-# Remote connection
+# Server services
 ## SSH 
 Set up a remote access (no-routing router to router)
 after having set up :
@@ -177,4 +177,21 @@ HOST
 ip name-server [router interface ip address]
 ip domain-lookup # convert ip address to name
 ping [dns host name]
+```
+
+## DHCP
+ROUTER
+```bash
+conf t
+interface [int]
+ip address [ip.254][mask]
+no shutdown
+!
+ip dhcp pool [name]
+network [start-ip.0][mask]
+default-router [ip]
+```
+HOST
+```console
+(config-if)# ip address dhcp
 ```
