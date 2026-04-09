@@ -3,6 +3,12 @@
 * ==r1(config)#== modify the config
 
 # Router configuration
+*Delete pre-configured startup config*
+```bash
+erase startup-config 
+reload # then reload 
+```
+
 *Open an integrated shell to configure FRR Routing daemon*
 ```console
 vtysh
