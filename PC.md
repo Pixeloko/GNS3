@@ -7,6 +7,7 @@ ip <address><cidr><gateway>
 create traffic
 ```bash
 ping [address] -t
+ping <address> source <ip | interface>
 (config)# ip sla [id] # to continue to run in the background
 (config-ip-sla)# icmp-echo [ip addr]
 (config-ip-sla-echo)# frequency [seconds]

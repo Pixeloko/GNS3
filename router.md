@@ -43,13 +43,14 @@ end
 ## Static route
 ```bash
 configure terminal
-ip route <destination-address><mask><gateway><AD>
+ip route <destination-address><mask><next-hop | exit interface><AD>
 # AD = amdinistration distance : reverse of priority level
-# mask indicate the bits we need to match for the destination
 # gateway = interface (ex: Serial 0/0/0)
 ipv6 route destination-address mask gateway AD
 # gateway can be global unicast address of the interface, the interface identifier (ex: Serial 0/0/0) or interface identifier + link-local address of the interface (because it is not routed)
 ```
+
+delete a static route with `no ip route <ip><mask><next-hop>`
 
 # Dynamic routing
 ## Neighbor Discovery with OSPF
@@ -102,10 +103,11 @@ show ip default-gateway # for router simulating being a host
 *Show the link-local address of an interface*
 ```console
 show ipv6 interface Serial 0/0/0 | include link-local
+```
 *routing static table*
 ```console 
-show ip route
-show ipv6 route static
+show ip route <destination>
+show ip[v6] route static
 ```
 *see the config*
 ```console
